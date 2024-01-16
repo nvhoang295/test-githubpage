@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="post-list"></ul>
+
+
+    <script>
+        const postApi = 'https://jsonplaceholder.typicode.com/posts';
+
+        // Thực hiện render ra nội dung từ API trên, với định dạng như sau:
+        // <li>
+        //    <h2> title
+        //    <p> body
+        // </li>
+        // Nếu load lỗi thì in ra lỗi với tham số error
+        // Dù lỗi hay không thì cũng in ra thông báo đã load xong api
+        // TODO: Code here
+        fetch(postApi)
+            .then(response => response.json())
+            .then(items => {
+                document.getElementById('post-list').innerHTML = items.map(item => {
+                    return `
+                    <li>
+                        <h2>${item.title}</h2>
+                        <p>${item.body}</p>
+                    </li>
+                    `
+                }).join('')
+            })
+            .catch(error => {
+                console.error(error)
+            })
+            .finally(() => {
+                console.log("post API has been loaded")
+            });
+    </script>
+</body>
+
+</html>
